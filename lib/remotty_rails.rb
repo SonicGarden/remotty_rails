@@ -24,7 +24,7 @@ module RemottyRails
   # Call this method to modify defaults in your initializers.
   #
   # @example
-  #   Remotty.setup do |config|
+  #   RemottyRails.setup do |config|
   #     config.client_id = 'your client id'
   #     config.client_secret = 'your client secret'
   #     config.site = 'https://www.remotty.net'

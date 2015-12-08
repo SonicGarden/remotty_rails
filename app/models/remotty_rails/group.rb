@@ -13,13 +13,13 @@ module RemottyRails
     end
 
     def post_entry(content, parent_id = nil, with_archive = false)
-      result = Remotty.access_token(token).post("/api/v1/groups/#{self.id}/entries.json", body: {entry: {content: content, parent_id: parent_id, with_archive: with_archive}})
+      result = RemottyRails.access_token(token).post("/api/v1/groups/#{self.id}/entries.json", body: {entry: {content: content, parent_id: parent_id, with_archive: with_archive}})
       JSON.parse(result.body)
     end
 
     def self.list(token)
-      response = Remotty.access_token(token).get('/api/v1/groups.json').parsed
-      Array(response).map { |attr| Remotty::Group.new(token, attr) }
+      response = RemottyRails.access_token(token).get('/api/v1/groups.json').parsed
+      Array(response).map { |attr| RemottyRails::Group.new(token, attr) }
     end
   end
 end
