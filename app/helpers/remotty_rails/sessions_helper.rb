@@ -7,7 +7,7 @@ module RemottyRails
     end
 
     def remotty_user_signed_in?
-      !!current_user
+      !!current_remotty_user
     end
 
     def current_remotty_user

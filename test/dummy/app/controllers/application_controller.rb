@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
 
   helper RemottyRails::SessionsHelper
 
-  before_action :store_location, :authenticate_user!
+  before_action :store_location, :authenticate_remotty_user!
 
 end
