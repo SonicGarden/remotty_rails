@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participation_id: 
+  email: MyString
+  name: MyString
+  icon_url: MyString
+  token: MyString
+
+two:
+  participation_id: 
+  email: MyString
+  name: MyString
+  icon_url: MyString
+  token: MyString
