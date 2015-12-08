@@ -23,7 +23,7 @@ module RemottyRails
 
     def post_comment(participation, content, show_log = false)
       RestClient.post(File.join(REMOTTY_URL, "/room_api/v1/rooms/participations/#{participation.id}/comments.json?token=#{self.token}"),
-                      comment: {content: comment, show_log: show_log})
+                      comment: {content: content, show_log: show_log})
     end
   end
 end
