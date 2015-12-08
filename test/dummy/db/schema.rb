@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206125256) do
+ActiveRecord::Schema.define(version: 20151208073145) do
 
   create_table "remotty_rails_participations", force: :cascade do |t|
-    t.integer  "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "remotty_rails_room_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
-  add_index "remotty_rails_participations", ["room_id"], name: "index_remotty_rails_participations_on_room_id"
+  add_index "remotty_rails_participations", ["remotty_rails_room_id"], name: "index_remotty_rails_participations_on_remotty_rails_room_id"
 
   create_table "remotty_rails_rooms", force: :cascade do |t|
     t.string   "token"
@@ -28,15 +28,15 @@ ActiveRecord::Schema.define(version: 20151206125256) do
   end
 
   create_table "remotty_rails_users", force: :cascade do |t|
-    t.integer  "participation_id"
+    t.integer  "remotty_rails_participation_id"
     t.string   "email"
     t.string   "name"
     t.string   "icon_url"
     t.string   "token"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
-  add_index "remotty_rails_users", ["participation_id"], name: "index_remotty_rails_users_on_participation_id"
+  add_index "remotty_rails_users", ["remotty_rails_participation_id"], name: "index_remotty_rails_users_on_remotty_rails_participation_id"
 
 end

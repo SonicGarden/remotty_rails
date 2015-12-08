@@ -1,7 +1,7 @@
 module RemottyRails
   class Room < ActiveRecord::Base
-    has_many :participations
-    has_many :users, through: :participations
+    has_many :participations, foreign_key: :remotty_rails_room_id
+    has_many :users, through: :participations, foreign_key: :remotty_rails_participation_id
 
     validates :token, presence: true
 

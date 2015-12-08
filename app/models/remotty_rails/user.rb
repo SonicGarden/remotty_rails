@@ -1,6 +1,6 @@
 module RemottyRails
   class User < ActiveRecord::Base
-    belongs_to :participation
+    belongs_to :participation, foreign_key: :remotty_rails_participation_id
 
     validates :participation, presence: true
 

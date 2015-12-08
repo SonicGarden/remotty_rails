@@ -1,3 +1,4 @@
+# This migration comes from remotty_rails (originally 20151206125233)
 class CreateRemottyRailsParticipations < ActiveRecord::Migration
   def change
     create_table :remotty_rails_participations do |t|
