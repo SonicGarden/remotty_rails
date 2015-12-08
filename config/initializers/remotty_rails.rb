@@ -1,4 +1,5 @@
-file_path = Rails.root.join('config', "remotty.yml")
+file_path = Rails.root.join('config', "remotty.#{Rails.env}.yml")
+file_path = Rails.root.join('config', "remotty.yml") unless File.exists?(file_path)
 raise 'You have not created config/remotty.yml' unless File.exists?(file_path)
 remotty_yml = YAML.load_file(file_path)
 
