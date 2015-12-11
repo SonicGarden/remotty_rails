@@ -1,5 +1,7 @@
 module RemottyRails
   module SessionsHelper
+    extend ActiveSupport::Concern
+
     def authenticate_remotty_user!
       unless remotty_user_signed_in?
         redirect_to signin_url
