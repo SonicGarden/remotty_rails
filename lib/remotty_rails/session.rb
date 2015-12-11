@@ -1,5 +1,5 @@
 module RemottyRails
-  module SessionsHelper
+  module Session
     extend ActiveSupport::Concern
 
     included do
