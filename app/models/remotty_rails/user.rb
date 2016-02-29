@@ -9,7 +9,7 @@ module RemottyRails
     end
 
     def self.find_or_create_with_omniauth(auth)
-      room = Room.create_with(token: auth['info']['room_token']).find_or_create_by(id: auth['info']['room_id'])
+      room = RemottyRails::Room.create_with(token: auth['info']['room_token']).find_or_create_by(id: auth['info']['room_id'])
       room.refresh!
       user = room.users.find_by(id: auth['uid'])
       user.update_column(:token, auth.credentials.token)
