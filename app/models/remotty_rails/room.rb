@@ -18,7 +18,7 @@ module RemottyRails
         user.icon_url = participation_json['icon_url']
         user.save
       end
-      self.participations.where(id: delete_participation_ids).delete_all
+      self.participations.where(id: delete_participation_ids).each(&:destroy)
     end
 
     def post_comment(participation, content, show_log = false)
