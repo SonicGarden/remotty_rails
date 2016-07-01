@@ -9,8 +9,7 @@
 #### 新規アプリケーションを作る
 1. rails newする、もしくは既存のRemotty連携アプリをコピーする
 1. Gem追加
-  * 以下の2つをGemfileに追加
-  1. gem 'doorkeeper'
+  * Gemfileに追加
   1. gem 'remotty_rails', git: 'https://github.com/SonicGarden/remotty_rails'
 
 #### ローカルにremottyを入れて動作させる
