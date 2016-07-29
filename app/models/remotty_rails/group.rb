@@ -1,7 +1,7 @@
 module RemottyRails
   class Group
     attr_accessor :token
-    attr_accessor :id, :name
+    attr_accessor :id, :name, :room_id
 
     def initialize(token, attributes = nil)
       self.token = token
@@ -9,6 +9,7 @@ module RemottyRails
         attributes = attributes.stringify_keys
         self.id = attributes['id']
         self.name = attributes['name']
+        self.room_id = attributes['room_id']
       end
     end
 
