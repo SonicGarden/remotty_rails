@@ -26,13 +26,15 @@ module RemottyRails
     end
 
     def post_comment(participation, content, show_log = false)
-      RestClient.post(File.join(REMOTTY_URL, "/room_api/v1/rooms/participations/#{participation.id}/comments.json?token=#{self.token}"),
+      result = RestClient.post(File.join(REMOTTY_URL, "/room_api/v1/rooms/participations/#{participation.id}/comments.json?token=#{self.token}"),
                       comment: {content: content, show_log: show_log})
+      JSON.parse(result.body)
     end
 
-    def post_entry(group, content)
-      RestClient.post(File.join(REMOTTY_URL, "/room_api/v1/groups/#{group.id}/entries.json?token=#{self.token}"),
-                      entry: {content: content})
+    def post_entry(group, content, parent_id = nil, with_archive = false)
+      result = RestClient.post(File.join(REMOTTY_URL, "/room_api/v1/groups/#{group.id}/entries.json?token=#{self.token}"),
+                      entry: {content: content, parent_id: parent_id, with_archive: with_archive})
+      JSON.parse(result.body)
     end
   end
 end

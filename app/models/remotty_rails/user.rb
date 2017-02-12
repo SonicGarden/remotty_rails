@@ -23,11 +23,13 @@ module RemottyRails
     end
 
     def post_comment(participation, content, show_log = false)
-      RemottyRails.access_token(token).post("/api/v1/rooms/participations/#{participation.id}/comments.json", body: { comment: { content: content, show_log: show_log } }).parsed
+      result = RemottyRails.access_token(token).post("/api/v1/rooms/participations/#{participation.id}/comments.json", body: { comment: { content: content, show_log: show_log } }).parsed
+      JSON.parse(result.body)
     end
 
     def post_entry(group_id, content, parent_id = nil, with_archive = false)
-      RemottyRails::Group.new(self.token, id: group_id).post_entry(content, parent_id, with_archive)
+      result = RemottyRails::Group.new(self.token, id: group_id).post_entry(content, parent_id, with_archive)
+      JSON.parse(result.body)
     end
   end
 end
