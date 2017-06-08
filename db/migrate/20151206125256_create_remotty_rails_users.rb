@@ -1,4 +1,4 @@
-class CreateRemottyRailsUsers < ActiveRecord::Migration
+class CreateRemottyRailsUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :remotty_rails_users do |t|
       t.references :remotty_rails_participation, index: true, foreign_key: true
