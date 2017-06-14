@@ -12,7 +12,9 @@ module RemottyRails
         delete_participation_ids = self.participations.pluck(:id) - participations_json.map { |p| p['id'] }
         participations_json.each do |participation_json|
           participation = self.participations.find_or_create_by(id: participation_json['id'])
-          user = RemottyRails::User.find_or_initialize_by(participation: participation)
+          participation.remotty_rails_user_id = participation_json['user_id']
+          participation.save
+          user = RemottyRails::User.find_or_initialize_by(id: participation.remotty_rails_user_id)
           user.id = participation_json['user_id']
           user.name = participation_json['name']
           user.email = participation_json['email']
