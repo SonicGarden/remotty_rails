@@ -7,6 +7,7 @@ module RemottyRails
     def self.find_or_create_with_omniauth(auth)
       me = RemottyRails.access_token(auth.credentials.token).get('/api/v1/me.json').parsed
       me['rooms'].each do |room_attribute|
+        next if room_attribute['room_token'].blank?
         room = RemottyRails::Room.find_or_create_by(id: room_attribute['id'])
         room.token = room_attribute['room_token']
         room.save!
