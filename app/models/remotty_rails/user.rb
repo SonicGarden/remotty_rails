@@ -10,6 +10,7 @@ module RemottyRails
         next if room_attribute['room_token'].blank?
         room = RemottyRails::Room.find_or_create_by(id: room_attribute['id'])
         room.token = room_attribute['room_token']
+        room.name = room_attribute['name']
         room.save!
         room.refresh!
       end
