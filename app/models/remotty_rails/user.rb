@@ -27,7 +27,7 @@ module RemottyRails
     end
 
     def post_comment(participation, content, show_log = false)
-      result = RemottyRails.access_token(token).post("/api/v1/rooms/participations/#{participation.id}/comments.json", body: { comment: { content: content, show_log: show_log } }).parsed
+      result = RemottyRails.access_token(token).post("/api/v1/rooms/participations/#{participation.id}/comments.json?room_id=#{participation.room.id}", body: { comment: { content: content, show_log: show_log } })
       JSON.parse(result.body)
     end
 
