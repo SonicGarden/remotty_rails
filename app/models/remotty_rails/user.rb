@@ -2,7 +2,8 @@ module RemottyRails
   class User < ActiveRecord::Base
     has_many :participations, dependent: :delete_all, foreign_key: :remotty_rails_user_id
     has_many :rooms, through: :participations
-    has_one :room, -> { order('participations.created_at ASC') }, class_name: 'Room'
+    has_one :participation, -> { order('remotty_rails_participations.created_at ASC') }, foreign_key: :remotty_rails_user_id
+    has_one :room, through: :participation
 
     def self.find_or_create_with_omniauth(auth)
       me = RemottyRails.access_token(auth.credentials.token).get('/api/v1/me.json').parsed
