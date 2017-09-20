@@ -9,16 +9,20 @@ module RemottyRails
       begin
         room_json = JSON.parse RestClient.get(File.join(REMOTTY_URL, "/room_api/v1/rooms.json?token=#{self.token}"))
         participations_json = room_json['participations']
-        delete_participation_ids = self.participations.pluck(:id) - participations_json.map { |p| p['id'] }
+
         participations_json.each do |participation_json|
-          participation = self.participations.find_or_create_by(id: participation_json['id'])
-          user = RemottyRails::User.find_or_initialize_by(participation: participation)
-          user.id = participation_json['user_id']
+          user = RemottyRails::User.find_or_initialize_by(id: participation_json['user_id'])
           user.name = participation_json['name']
           user.email = participation_json['email']
           user.icon_url = participation_json['icon_url']
           user.save
+
+          participation = participations.find_or_initialize_by(id: participation_json['id'])
+          participation.user = user
+          participation.save!
         end
+
+        delete_participation_ids = self.participations.pluck(:id) - participations_json.map { |p| p['id'] }
         self.participations.where(id: delete_participation_ids).each(&:destroy)
       rescue => e
         # 更新できないルームは一旦無視

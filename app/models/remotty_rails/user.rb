@@ -1,19 +1,24 @@
 module RemottyRails
   class User < ActiveRecord::Base
-    belongs_to :participation, foreign_key: :remotty_rails_participation_id
-
-    validates :participation, presence: true
+    has_many :participations, foreign_key: :remotty_rails_user_id
+    has_many :rooms, through: :participations, foreign_key: :remotty_rails_user_id
 
     def room
-      self.participation.room
+      self.participation&.room
+    end
+
+    def participation
+      self.participations.first
     end
 
     def self.find_or_create_with_omniauth(auth)
-      room = RemottyRails::Room.find_or_create_by(id: auth['info']['room_id'])
-      room.token = auth['info']['room_token']
-      room.save!
-      room.refresh!
-      user = room.users.find_by(id: auth['uid'])
+      auth['info']['rooms'].each do |room_hash|
+        room = RemottyRails::Room.find_or_initialize_by(id: room_hash['id'])
+        room.token = room_hash['room_token']
+        room.save!
+        room.refresh!
+      end
+      user = User.find_by(id: auth['uid'])
       user.update_column(:token, auth.credentials.token)
       user
     end
