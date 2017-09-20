@@ -1,4 +1,4 @@
-class CreateRemottyRailsRooms < ActiveRecord::Migration[4.2]
+class CreateRemottyRailsRooms < ActiveRecord::Migration
   def change
     create_table :remotty_rails_rooms do |t|
       t.string :token
