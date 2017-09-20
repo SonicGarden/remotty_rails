@@ -6,18 +6,15 @@ module RemottyRails
     has_one :room, through: :participation
 
     def self.find_or_create_with_omniauth(auth)
-      me = RemottyRails.access_token(auth.credentials.token).get('/api/v1/me.json').parsed
-      me['rooms'].each do |room_attribute|
-        next if room_attribute['room_token'].blank?
-        room = RemottyRails::Room.find_or_create_by(id: room_attribute['id'])
+      auth['info']['rooms'].each do |room_attribute|
+        room = RemottyRails::Room.find_or_initialize_by(id: room_attribute['id'])
         room.token = room_attribute['room_token']
         room.name = room_attribute['name']
         room.save!
         room.refresh!
       end
 
-      first_room = RemottyRails::Room.find(me['room_id'])
-      user = first_room.users.find(auth['uid'])
+      user = User.find(auth['uid'])
       user.update_column(:token, auth.credentials.token)
       user
     end
