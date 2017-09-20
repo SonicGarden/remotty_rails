@@ -19,8 +19,8 @@ module RemottyRails
       user
     end
 
-    def groups
-      RemottyRails::Group.list(self.token)
+    def groups(target_room = room)
+      RemottyRails::Group.list(self.token, room.id)
     end
 
     def post_comment(participation, content, show_log = false)
