@@ -19,7 +19,8 @@ module RemottyRails
     end
 
     def self.list(token, room_id = nil)
-      response = RemottyRails.access_token(token).get('/api/v1/groups.json', params: { room_id: room_id }).parsed
+      params = room_id ? { room_id: room_id } : nil
+      response = RemottyRails.access_token(token).get('/api/v1/groups.json', params: params).parsed
       Array(response).map { |attr| RemottyRails::Group.new(token, attr) }
     end
   end
