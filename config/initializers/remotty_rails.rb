@@ -1,7 +1,7 @@
 file_path = Rails.root.join('config', "remotty.#{Rails.env}.yml")
 file_path = Rails.root.join('config', "remotty.yml") unless File.exists?(file_path)
 raise 'You have not created config/remotty.yml' unless File.exists?(file_path)
-remotty_yml = YAML.load_file(file_path)
+remotty_yml = YAML.load(ERB.new(file_path.read).result)
 
 REMOTTY_URL = remotty_yml['remotty_url'] || 'https://www.remotty.net'
 Rails.application.config.middleware.use OmniAuth::Builder do
