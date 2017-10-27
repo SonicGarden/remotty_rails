@@ -28,8 +28,7 @@ module RemottyRails
     end
 
     def post_entry(group_id, content, parent_id = nil, with_archive = false)
-      result = RemottyRails::Group.new(self.token, id: group_id).post_entry(content, parent_id, with_archive)
-      JSON.parse(result.body)
+      RemottyRails::Group.new(self.token, id: group_id).post_entry(content, parent_id, with_archive)
     end
   end
 end
