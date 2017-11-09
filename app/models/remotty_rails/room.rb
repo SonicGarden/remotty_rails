@@ -3,8 +3,6 @@ module RemottyRails
     has_many :participations, foreign_key: :remotty_rails_room_id
     has_many :users, through: :participations, foreign_key: :remotty_rails_participation_id
 
-    validates :token, presence: true
-
     def refresh!
       begin
         room_json = JSON.parse RestClient.get(File.join(REMOTTY_URL, "/room_api/v1/rooms.json?token=#{self.token}"))
