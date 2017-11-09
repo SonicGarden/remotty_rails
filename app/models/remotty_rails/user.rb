@@ -1,7 +1,7 @@
 module RemottyRails
   class User < ActiveRecord::Base
     has_many :participations, dependent: :delete_all, foreign_key: :remotty_rails_user_id
-    has_many :rooms, through: :participations
+    has_many :rooms, ->{ where.not(token: nil) }, through: :participations
     has_one :participation, -> { order('remotty_rails_participations.id ASC') }, foreign_key: :remotty_rails_user_id
     has_one :room, through: :participation
 
