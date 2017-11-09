@@ -17,7 +17,7 @@ module OmniAuth
           email: raw_info['email'],
           name: raw_info['name'],
           icon_url: raw_info['icon_url'],
-          rooms: raw_info['rooms'].select { |room| room['room_token'].present? }
+          rooms: raw_info['rooms']
         }
       end
 
