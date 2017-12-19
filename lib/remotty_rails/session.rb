@@ -23,7 +23,6 @@ module RemottyRails
     def store_location
       return unless request.get?
       paths_not_to_be_stored = [
-        main_app.root_path,
         signin_path,
         signout_path,
         create_session_path
