@@ -17,11 +17,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", ">= 4.2.5"
+  s.add_dependency "rails", ">= 4.2.10"
   s.add_dependency "omniauth"
   s.add_dependency "oauth2"
   s.add_dependency "omniauth-oauth2", '~> 1.3.1'
   s.add_dependency "rest-client"
-
-  s.add_development_dependency "sqlite3"
 end
