@@ -19,7 +19,6 @@ module RemottyRails
       redirect_to main_app.root_url
     end
 
-    def failure
-    end
+    def failure; end
   end
 end
