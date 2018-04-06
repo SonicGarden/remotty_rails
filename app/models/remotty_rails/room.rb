@@ -27,6 +27,8 @@ module RemottyRails
       rescue RestClient::ExceptionWithResponse => e
         if e.response.code == 401
           deactivate
+        else
+          raise e
         end
       end
     end
