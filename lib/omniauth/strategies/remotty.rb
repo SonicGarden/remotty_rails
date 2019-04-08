@@ -14,12 +14,10 @@ module OmniAuth
 
       info do
         {
-          :email => raw_info['email'],
-          :name => raw_info['name'],
-          :icon_url => raw_info['icon_url'],
-          :room_id => raw_info['room_id'],
-          :room_token => raw_info['room_token'],
-          :participation_id => raw_info['participation_id'],
+          email: raw_info['email'],
+          name: raw_info['name'],
+          icon_url: raw_info['icon_url'],
+          rooms: raw_info['rooms']
         }
       end
 

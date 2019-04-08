@@ -1,7 +1,7 @@
 module RemottyRails
   class Group
     attr_accessor :token
-    attr_accessor :id, :name, :room_id
+    attr_accessor :id, :name, :room_id, :opened
 
     def initialize(token, attributes = nil)
       self.token = token
@@ -10,6 +10,7 @@ module RemottyRails
         self.id = attributes['id']
         self.name = attributes['name']
         self.room_id = attributes['room_id']
+        self.opened = attributes['opened']
       end
     end
 
@@ -18,8 +19,9 @@ module RemottyRails
       JSON.parse(result.body)
     end
 
-    def self.list(token)
-      response = RemottyRails.access_token(token).get('/api/v1/groups.json').parsed
+    def self.list(token, room_id = nil)
+      params = room_id ? { room_id: room_id } : nil
+      response = RemottyRails.access_token(token).get('/api/v1/groups.json', params: params).parsed
       Array(response).map { |attr| RemottyRails::Group.new(token, attr) }
     end
   end

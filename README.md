@@ -39,6 +39,7 @@
     - https://www.remotty.net/ 右上のドロップダウン
 
 #### 新規アプリケーション側で認証処理が実行されるようにする
+* `rake remotty_rails:install:migrations`でmigration fileをコピーする
 * `rake db:migrate`して、remotty_rails_rooms（ルーム）、remotty_rails_users（ユーザ）、remotty_rails_participations（ルーム参加者）という3つのテーブルを作る
 * 既存のremotty連携アプリから認証関連のクラスやメソッドをコピーしてくる
   - AuthorizationsControllerをコピーして、新規アプリケーションに追加
