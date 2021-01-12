@@ -11,7 +11,10 @@ module RemottyRails
         room.token = room_attribute['room_token']
         room.name = room_attribute['name']
         room.save!
-        room.refresh!
+        # refresh!メソッドの内部で行っているAPI呼び出しが原因で、Remotty-Calendarがタイムアウトする事象がある。
+        # （https://www.sonicgarden.world/groups/3494/entries/1031024）
+        # 事象回避のため、Remotty-Calendar向けには不要となっているこの処理↓はコメントアウトする。
+        # room.refresh!
       end
 
       user = User.find(auth['uid'])
