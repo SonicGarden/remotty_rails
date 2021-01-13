@@ -6,6 +6,12 @@ module RemottyRails
     has_one :room, through: :participation
 
     def self.find_or_create_with_omniauth(auth)
+      user = RemottyRails::User.find_or_initialize(auth['uid'])
+      user.name = auth['name']
+      user.email = auth['email']
+      user.icon_url = auth['icon_url']
+      user.save
+
       auth['info']['rooms'].each do |room_attribute|
         room = RemottyRails::Room.find_or_initialize_by(id: room_attribute['id'])
         room.token = room_attribute['room_token']
@@ -15,9 +21,12 @@ module RemottyRails
         # （https://www.sonicgarden.world/groups/3494/entries/1031024）
         # 事象回避のため、Remotty-Calendar向けには不要となっているこの処理↓はコメントアウトする。
         # room.refresh!
+
+        participation = room.participations.find_or_initialize_by(id: room_attribute['participation_id'])
+        participation.user = user
+        participation.save
       end
 
-      user = User.find(auth['uid'])
       user.update_column(:token, auth.credentials.token)
       user
     end
