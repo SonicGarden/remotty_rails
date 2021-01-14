@@ -6,7 +6,7 @@ module RemottyRails
     has_one :room, through: :participation
 
     def self.find_or_create_with_omniauth(auth)
-      user = RemottyRails::User.find_or_initialize_by(auth['uid'])
+      user = RemottyRails::User.find_or_initialize_by(id: auth['uid'])
       user.name = auth['name']
       user.email = auth['email']
       user.icon_url = auth['icon_url']
