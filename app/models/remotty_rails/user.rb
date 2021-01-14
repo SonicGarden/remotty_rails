@@ -6,8 +6,6 @@ module RemottyRails
     has_one :room, through: :participation
 
     def self.find_or_create_with_omniauth(auth)
-      Rails.logger.info auth.to_yaml
-
       user = RemottyRails::User.find_or_initialize_by(id: auth['uid'])
       user.name = auth['name']
       user.email = auth['email']
@@ -21,7 +19,7 @@ module RemottyRails
         room.save!
         # refresh!メソッドの内部で行っているAPI呼び出しが原因で、Remotty-Calendarがタイムアウトする事象がある。
         # （https://www.sonicgarden.world/groups/3494/entries/1031024）
-        # 事象回避のため、Remotty-Calendar向けには不要となっているこの処理↓はコメントアウトする。
+        # 事象回避のため、for-remotty-calendarブランチでは、この呼び出し↓はコメントアウトする。
         # room.refresh!
 
         participation = room.participations.find_or_initialize_by(id: room_attribute['participation_id'])
